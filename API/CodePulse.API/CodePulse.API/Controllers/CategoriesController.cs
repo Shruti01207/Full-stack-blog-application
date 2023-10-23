@@ -43,5 +43,28 @@ namespace CodePulse.API.Controllers
             return Ok(response);
             // never expose Domain model to client
          }
+
+
+        [HttpGet]
+
+        public async Task<IActionResult> GetCategories()
+        {
+          var categories= await categoryRepositry.GetAllAsync();
+          var response = new List<CategoryDto>();
+
+          foreach(var category in categories){
+
+                response.Add(new CategoryDto
+                {
+                    Id=category.Id,
+                    Name = category.Name,
+                    UrlHandle = category.UrlHandle
+
+                });    
+           }
+
+            return Ok(response);
+
+        }
     }
 }
