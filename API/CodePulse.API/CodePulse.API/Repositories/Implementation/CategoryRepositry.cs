@@ -17,17 +17,22 @@ namespace CodePulse.API.Repositories.Implementation
             this.dbContext = dbContext;
         }
 
-         public async Task<Category> CreateAsync(Category category)
-         {
+        public async Task<Category> CreateAsync(Category category)
+        {
              await dbContext.Categories.AddAsync(category);// talk to db
              await dbContext.SaveChangesAsync(); // save changes to Db
              return category;
-         }
+        }
 
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
-           return await dbContext.Categories.ToListAsync();
+            return await dbContext.Categories.ToListAsync();
  
+        }
+
+        public async Task<Category> GetById(Guid id)
+        {
+            return await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

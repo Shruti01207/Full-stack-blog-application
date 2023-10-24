@@ -1,6 +1,7 @@
 ﻿using CodePulse.API.Data;
 using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
+using CodePulse.API.Repositories.Implementation;
 using CodePulse.API.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace CodePulse.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(CreateCategoryRequestDto request)
+        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
          {
             var category = new Category
             {
@@ -66,5 +67,31 @@ namespace CodePulse.API.Controllers
             return Ok(response);
 
         }
+        // GET: https://localhost:7157/api/categories/{id}
+        [HttpGet]
+        [Route("{id:Guid}")]
+
+        public async Task<IActionResult> GetCategoryById([FromRoute] Guid id)
+        {
+            var existingCategory = await categoryRepositry.GetById(id);
+
+            if (existingCategory == null)
+                return NotFound();
+
+            var response = new CategoryDto
+            {
+                Id = existingCategory.Id,
+                Name = existingCategory.Name,
+                UrlHandle = existingCategory.UrlHandle
+            };
+
+            return Ok(response);
+
+        }
     }
+
+
+    
+   
+
 }

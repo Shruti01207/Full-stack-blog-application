@@ -9,5 +9,8 @@ namespace CodePulse.API.Repositories.Interface
 
         Task<IEnumerable<Category>> GetAllAsync();
 
+        // if the item with particular id is not found in the Db, then return null
+        Task<Category?> GetById(Guid id);
+
     }
 }
