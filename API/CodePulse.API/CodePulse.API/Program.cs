@@ -19,6 +19,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 // how to inject service in an mvc app
 builder.Services.AddScoped<ICategoryRepositry,CategoryRepositry>( );
+// inject the interface
+builder.Services.AddScoped<IBlogPostRepositry,BlogPostRepositry>();
 
 var app = builder.Build();
 

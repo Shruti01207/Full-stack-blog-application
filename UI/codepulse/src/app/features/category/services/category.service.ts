@@ -4,6 +4,7 @@ import { AddCategoryRequest } from '../models/add-category-request.model';
 import { Observable, Subscription } from 'rxjs';
 import { Category } from '../models/category.model';
 import { environment } from 'src/environments/environment';
+import { UpdateCategoryRequest } from '../models/update-category-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,14 @@ export class CategoryService {
 
   getCategoryId(id: string): Observable<Category> {
     return this.http.get<Category>(`${environment.apiBaseUrl}/api/categories/${id}`)
+  }
+
+  updateCategory(id: string, updatedCategory: UpdateCategoryRequest): Observable<Category> {
+    return this.http.put<Category>(`${environment.apiBaseUrl}/api/categories/${id}`, updatedCategory);
+  }
+
+  deleteCategory(id: string): Observable<Category> {
+    return this.http.delete<Category>(`${environment.apiBaseUrl}/api/categories/${id}`);
   }
 
 }

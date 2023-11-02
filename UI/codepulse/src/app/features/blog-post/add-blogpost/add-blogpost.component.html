@@ -1,0 +1,83 @@
+<div class="container">
+
+    <h1 class="mt-3">Add BlogPost</h1>
+    <form #blogPostForm="ngForm" (ngSubmit)="onFormSubmit( )">
+        <div class="mt-2 mb-5">
+            <div class="mt-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" id="title" name="title" class="form-control"
+                    [(ngModel)]="model.title"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl>
+            </div>
+            <div class="mt-3">
+                <label for="urlHandle" class="form-label">UrlHandle</label>
+                <input type="text" id="urlHandle" name="urlHandle"
+                    class="form-control" [(ngModel)]="model.urlHandle"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl>
+            </div>
+            <div class="mt-3">
+                <label for="shortDescription" class="form-label">Short
+                    Description</label>
+                <input type="text" id="shortDescription" name="shortDescription"
+                    class="form-control" [(ngModel)]="model.shortDescription"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl>
+            </div>
+            <div class="mt-3">
+                <label for="content" class="form-label">Content</label>
+                <div class="d-flex flex-row">
+                    <div class="col-6 p-2">
+                        <textarea name="content" id="content"
+                            class="form-control"
+                            [(ngModel)]="model.content" ngDefaultControl
+                            [ngModelOptions]="{standalone: true}"
+                            style="height:350px; max-height:350px"></textarea>
+                    </div>
+                    <div class="col-6 p-2"
+                        style="max-height:350px; overflow-x:scroll">
+                        <markdown [data]="model.content"></markdown>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <label for="featuredImageUrl" class="form-label">Featured Image
+                    Url</label>
+                    <ng-container *ngIf="model.featuredImageUrl.length>0">
+                            <div>
+                                <img src="{{model.featuredImageUrl}}" height="300">
+                            </div>
+                    </ng-container>
+                <input type="text" name="featuredImageUrl" id="featuredImageUrl"
+                    class="form-control" [(ngModel)]="model.featuredImageUrl"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                </div>
+
+            <div class="mt-3">
+                <label for="publishedDate" class="form-label">Published Date</label>
+                <input type="date" name="publishedDate" id="publishedDate"
+                    class="form-control"
+                    [ngModel]="model.publishedDate | date:'yyy-MM-dd' "
+                    value="{{model.publishedDate}}"
+                    (ngModelChange)="model.publishedDate= $event"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl>
+            </div>
+            <div class="mt-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" name="author" id="author"
+                    class="form-control" [(ngModel)]="model.author"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl>
+            </div>
+            <div class="form-check mt-3">
+                <input class="form-check-input" type="checkbox" name="isVisible"
+                    id="isVisible" [(ngModel)]="model.isVisible"
+                    ngDefaultControl [ngModelOptions]="{standalone: true}">
+                <label class="form-check-label" for="isVisible">
+                    isVisible
+                </label>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+
+</div>
